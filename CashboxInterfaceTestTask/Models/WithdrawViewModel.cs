@@ -5,7 +5,7 @@ namespace CashboxInterfaceTestTask.Models
     public class WithdrawViewModel
     {
         [Required]
-        [Range(0, double.MaxValue, ErrorMessage = "Withdraw amount must be positive")]
+        [Range(0.0, int.MaxValue, ErrorMessage = "Withdraw amount must be positive")]
         public decimal Amount { get; set; }
     }
 }

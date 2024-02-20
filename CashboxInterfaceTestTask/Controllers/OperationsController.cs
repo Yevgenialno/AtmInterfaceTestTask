@@ -8,18 +8,11 @@ using CashboxInterfaceTestTask.Services;
 
 namespace CashboxInterfaceTestTask.Controllers
 {
-    public class OperationsController : Controller
+    public class OperationsController(ApplicationDbContext context, IBankOperationsService bankOperationsService, UserManager<ApplicationUser> userManager) : Controller
     {
-        private readonly ApplicationDbContext _context;
-        private readonly IBankOperationsService _operations;
-        private readonly UserManager<ApplicationUser> _userManager;
-
-        public OperationsController(ApplicationDbContext context, IBankOperationsService bankOperationsService, UserManager<ApplicationUser> userManager) 
-        {
-            _context = context;
-            _operations = bankOperationsService;
-            _userManager = userManager;
-        }
+        private readonly ApplicationDbContext _context = context;
+        private readonly IBankOperationsService _operations = bankOperationsService;
+        private readonly UserManager<ApplicationUser> _userManager = userManager;
 
         [Authorize]
         public IActionResult Index()
@@ -38,22 +31,35 @@ namespace CashboxInterfaceTestTask.Controllers
         [Authorize]
         public async Task<IActionResult> Withdraw(WithdrawViewModel model)
         {
-            var user = await _userManager.GetUserAsync(User);
-            bool result = await _operations.WithdrawFunds(_context, user, model.Amount);
-            if (result)
+            if (ModelState.IsValid)
             {
-                var repotModel = new WithdrawReportViewModel()
+                var user = await _userManager.GetUserAsync(User);
+                bool result = await _operations.WithdrawFunds(_context, user, model.Amount);
+                if (result)
                 {
-                    CardNumber = user.CardNumber,
-                    DateTime = DateTime.Now,
-                    Amount = model.Amount,
-                    Rest = user.Balance,
-                };
-                return View("OperationReport", repotModel);
+                    var repotModel = new WithdrawReportViewModel()
+                    {
+                        CardNumber = user.CardNumber,
+                        Amount = model.Amount,
+                        Rest = user.Balance,
+                    };
+                    return View("WithdrawReport", repotModel);
+                }
+
+                var errorModel = new WithdrawErrorViewModel() { ErrorMessage = "Invalid amount to withdraw", };
+                return View("WithdrawError", errorModel);
             }
 
-            var errorModel = new WithdrawErrorViewModel() { ErrorMessage = "Invalid amount to withdraw", };
-            return View("WithdrawError", errorModel);
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> SeeBalance()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var model = new SeeBalanceViewModel() { Balance = user.Balance, CardNumber = user.CardNumber };
+            return View(model);
         }
     }
 }

@@ -65,7 +65,7 @@ namespace CashboxInterfaceTestTask.Controllers
                 }
 
                 TempData["CardNumber"] = model.CardNumber;
-                return View("EnterPin");
+                return RedirectToAction("EnterPin");
             }
 
             return View(new CardNumberViewModel());
