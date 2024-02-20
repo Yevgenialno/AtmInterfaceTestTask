@@ -1,0 +1,15 @@
+﻿@model LoginViewModel
+
+login
+<form method="post" asp-controller="Account" asp-action="Login">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-froup">
+        <label asp-for="CardNumber"></label>
+        <input asp-for="CardNumber" />
+    </div>
+    <div class="form-froup">
+        <label asp-for="Pin"></label>
+        <input asp-for="Pin" />
+    </div>
+    <button type="submit">login</button>
+</form>

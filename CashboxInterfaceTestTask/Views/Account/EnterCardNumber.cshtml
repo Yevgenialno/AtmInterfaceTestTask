@@ -1,0 +1,11 @@
+﻿@model CardNumberViewModel
+
+<p>Enter your card number</p>
+<form method="post" asp-controller="Account" asp-action="EnterCardNumber">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-froup">
+        <label asp-for="CardNumber"></label>
+        <input asp-for="CardNumber" />
+    </div>
+    <button type="submit">OK</button>
+</form>
