@@ -1,5 +1,6 @@
 using CashboxInterfaceTestTask.Data;
 using CashboxInterfaceTestTask.Models;
+using CashboxInterfaceTestTask.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,8 @@ builder.Services.Configure<IdentityOptions>(opt =>
     opt.Password.RequireUppercase = false;
     opt.Password.RequireLowercase = false;
 });
+
+builder.Services.AddScoped<IBankOperationsService, BankOperationsService>();
 
 var app = builder.Build();
 

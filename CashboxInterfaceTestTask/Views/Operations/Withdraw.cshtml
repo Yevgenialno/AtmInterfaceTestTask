@@ -1,0 +1,11 @@
+﻿@model WithdrawViewModel
+
+<p>Enter amount to withdraw</p>
+<form method="post" asp-controller="Operations" asp-action="Withdraw">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-froup">
+        <label asp-for="Amount"></label>
+        <input asp-for="Amount" />
+    </div>
+    <button type="submit">OK</button>
+</form>

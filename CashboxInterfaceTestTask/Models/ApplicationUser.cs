@@ -7,5 +7,7 @@ namespace CashboxInterfaceTestTask.Models
     {
         [Required]
         public string CardNumber { get; set; }
+
+        public decimal Balance { get; set; } = 0;
     }
 }

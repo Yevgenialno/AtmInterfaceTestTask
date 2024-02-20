@@ -6,18 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CashboxInterfaceTestTask.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context) : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly ApplicationDbContext _context;
-
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _context = context;
-        }
+        private readonly UserManager<ApplicationUser> _userManager = userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
+        private readonly ApplicationDbContext _context = context;
 
         [HttpGet]
         public IActionResult Register()
@@ -50,29 +43,6 @@ namespace CashboxInterfaceTestTask.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
-        {
-            return View(new LoginViewModel());
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = _context.Users.Single(u => u.CardNumber == model.CardNumber);
-                var result = await _signInManager.PasswordSignInAsync(user, model.Pin, false, false);
-                if (result.Succeeded)
-                {
-                    Console.WriteLine("signed in " + user.CardNumber);
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-            return View(new LoginViewModel());
-        }
-
-        [HttpGet]
         public IActionResult EnterCardNumber()
         {
             return View(new CardNumberViewModel());
@@ -86,7 +56,7 @@ namespace CashboxInterfaceTestTask.Controllers
             {
                 try
                 {
-                    var user = await _context.Users.SingleAsync(u => u.CardNumber == model.CardNumber);
+                    await _context.Users.SingleAsync(u => u.CardNumber == model.CardNumber);
                 }
                 catch (InvalidOperationException ex)
                 {
