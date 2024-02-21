@@ -40,7 +40,7 @@ namespace CashboxInterfaceTestTask.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("BalanceViews");
+                    b.ToTable("BalanceViews", (string)null);
                 });
 
             modelBuilder.Entity("CashboxInterfaceTestTask.Data.Withdrawal", b =>
@@ -65,7 +65,7 @@ namespace CashboxInterfaceTestTask.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Withdrawals");
+                    b.ToTable("Withdrawals", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

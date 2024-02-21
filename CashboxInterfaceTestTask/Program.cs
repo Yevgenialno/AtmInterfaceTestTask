@@ -22,6 +22,7 @@ builder.Services.Configure<IdentityOptions>(opt =>
     opt.Password.RequiredUniqueChars = 0;
     opt.Password.RequireUppercase = false;
     opt.Password.RequireLowercase = false;
+
     opt.Lockout.MaxFailedAccessAttempts = 4;
     opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(365);
 });

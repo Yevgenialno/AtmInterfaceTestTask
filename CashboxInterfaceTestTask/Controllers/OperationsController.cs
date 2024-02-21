@@ -36,14 +36,14 @@ namespace CashboxInterfaceTestTask.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
-                bool result = await _operations.WithdrawFunds(_context, user, model.Amount);
+                bool result = await _operations.WithdrawFunds(_context, user!, model.Amount);
                 if (result)
                 {
                     var repotModel = new WithdrawReportViewModel()
                     {
-                        CardNumber = user.CardNumber,
+                        CardNumber = user!.CardNumber,
                         Amount = model.Amount,
-                        Rest = user.Balance,
+                        Rest = user!.Balance,
                     };
                     return View("WithdrawReport", repotModel);
                 }
@@ -60,7 +60,7 @@ namespace CashboxInterfaceTestTask.Controllers
         public async Task<IActionResult> SeeBalance()
         {
             var user = await _userManager.GetUserAsync(User);
-            var model = new SeeBalanceViewModel() { Balance = user.Balance, CardNumber = user.CardNumber };
+            var model = new SeeBalanceViewModel() { Balance = user!.Balance, CardNumber = user.CardNumber };
             var balanceView = new BalanceView()
             {
                 User = user,

@@ -9,7 +9,7 @@ using CashboxInterfaceTestTask.Models.Operations;
 
 namespace CashboxInterfaceTestTask.Controllers
 {
-    public class AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context) : Controller
+    public class AccountController(SignInManager<ApplicationUser> signInManager, ApplicationDbContext context) : Controller
     {
         private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
         private readonly ApplicationDbContext _context = context;
@@ -50,7 +50,7 @@ namespace CashboxInterfaceTestTask.Controllers
                 {
                     await _context.Users.SingleAsync(u => u.CardNumber == cardNumber);
                 }
-                catch (InvalidOperationException ex)
+                catch (InvalidOperationException)
                 {
                     var errorModel = new InvalidLoginViewModel() { ErrorMessage = "This card number does not exist" };
                     return View("InvalidLogin", errorModel);
@@ -80,7 +80,7 @@ namespace CashboxInterfaceTestTask.Controllers
                 {
                     user = _context.Users.Single(u => u.CardNumber == TempData.Peek("CardNumber") as string);
                 }
-                catch (InvalidOperationException ex)
+                catch (InvalidOperationException)
                 {
                     var errorModel = new InvalidLoginViewModel() { ErrorMessage = "This card number does not exist" };
                     return View("InvalidLogin", errorModel);
