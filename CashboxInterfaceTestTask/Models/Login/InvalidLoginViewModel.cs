@@ -1,4 +1,4 @@
-﻿namespace CashboxInterfaceTestTask.Models
+﻿namespace CashboxInterfaceTestTask.Models.Login
 {
     public class InvalidLoginViewModel
     {

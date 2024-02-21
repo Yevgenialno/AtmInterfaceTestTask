@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CashboxInterfaceTestTask.Models
+namespace CashboxInterfaceTestTask.Models.Login
 {
     public class PinViewModel
     {
@@ -8,6 +8,6 @@ namespace CashboxInterfaceTestTask.Models
         [DataType(DataType.Password)]
         [MaxLength(4)]
         [MinLength(4)]
-        public string Pin {  get; set; }
+        public string Pin { get; set; }
     }
 }

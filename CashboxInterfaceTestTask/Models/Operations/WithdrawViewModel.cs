@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CashboxInterfaceTestTask.Models
+namespace CashboxInterfaceTestTask.Models.Operations
 {
     public class WithdrawViewModel
     {

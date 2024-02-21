@@ -5,6 +5,8 @@ using CashboxInterfaceTestTask.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CashboxInterfaceTestTask.Services;
+using CashboxInterfaceTestTask.Models.Operations;
+using CashboxInterfaceTestTask.Models.Login;
 
 namespace CashboxInterfaceTestTask.Controllers
 {

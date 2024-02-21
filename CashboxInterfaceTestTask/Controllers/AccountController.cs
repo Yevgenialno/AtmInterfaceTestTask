@@ -1,15 +1,16 @@
 ﻿using CashboxInterfaceTestTask.Data;
 using CashboxInterfaceTestTask.Models;
+using CashboxInterfaceTestTask.Models.Login;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using CashboxInterfaceTestTask.Models.Operations;
 
 namespace CashboxInterfaceTestTask.Controllers
 {
     public class AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext context) : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager = userManager;
         private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
         private readonly ApplicationDbContext _context = context;
 
@@ -31,36 +32,6 @@ namespace CashboxInterfaceTestTask.Controllers
 
             return RedirectToAction("EnterCardNumber");
         }*/
-
-        [HttpGet]
-        public IActionResult Register()
-        {
-            var model = new RegisterViewModel();
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model)
-        {
-            Console.WriteLine("started registration");
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser
-                {
-                    CardNumber = model.CardNumber,
-                    UserName = model.CardNumber,
-                };
-
-                var result = await _userManager.CreateAsync(user, model.Pin);
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-            return View(model);
-        }
 
         [HttpGet]
         public IActionResult EnterCardNumber()
@@ -121,6 +92,7 @@ namespace CashboxInterfaceTestTask.Controllers
                     Console.WriteLine("signed in " + user.CardNumber);
                     return RedirectToAction("Index", "Operations");
                 }
+
                 if (result.IsLockedOut)
                 {
                     var errorModel = new InvalidLoginViewModel() { ErrorMessage = "Your card is blocked" };
@@ -132,13 +104,13 @@ namespace CashboxInterfaceTestTask.Controllers
                     return View("InvalidLogin", errorModel);
                 }
             }
+
             return View(new PinViewModel());
         }
 
         [HttpPost]
         public async Task<IActionResult> LogOff()
         {
-            Console.WriteLine("logging off");
             await _signInManager.SignOutAsync();
             return RedirectToAction("EnterCardNumber");
         }

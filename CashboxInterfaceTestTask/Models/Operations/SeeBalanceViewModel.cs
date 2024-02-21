@@ -1,4 +1,4 @@
-﻿namespace CashboxInterfaceTestTask.Models
+﻿namespace CashboxInterfaceTestTask.Models.Operations
 {
     public class SeeBalanceViewModel
     {
