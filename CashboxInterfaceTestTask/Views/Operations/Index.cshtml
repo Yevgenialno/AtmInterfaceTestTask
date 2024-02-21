@@ -1,3 +1,9 @@
-﻿<a class="btn" asp-controller="Operations" asp-action="SeeBalance">My balance</a>
-<a class="btn" asp-controller="Operations" asp-action="Withdraw">Withdraw funds</a>
-<a class="btn" asp-controller="AccountController" asp-action="LogOff">Exit</a>
+﻿<form method="get" asp-controller="Operations" asp-action="SeeBalance">
+    <button type="submit" class="btn">My balance</button>
+</form>
+<form method="get" asp-controller="Operations" asp-action="Withdraw">
+    <button type="submit" class="btn">Withdraw funds</button>
+</form>
+<form method="post" asp-controller="Account" asp-action="LogOff">
+    <button type="submit" class="btn">Exit</button>
+</form>

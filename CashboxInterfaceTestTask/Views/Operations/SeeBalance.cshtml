@@ -2,3 +2,9 @@
 
 <p>@Model.DateTime</p>
 <p>Your balance on card @Model.CardNumber is @Model.Balance</p>
+<form method="get" asp-controller="Operations" asp-action="Index">
+    <button class="btn" type="submit">Back</button>
+</form>
+<form method="post" asp-controller="Account" asp-action="LogOff">
+    <button class="btn" type="submit">Exit</button>
+</form>

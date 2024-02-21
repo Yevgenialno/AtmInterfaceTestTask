@@ -1,4 +1,5 @@
-﻿using CashboxInterfaceTestTask.Models;
+﻿using CashboxInterfaceTestTask.Data;
+using CashboxInterfaceTestTask.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CashboxInterfaceTestTask.Services
@@ -7,11 +8,17 @@ namespace CashboxInterfaceTestTask.Services
     {
         public BankOperationsService() { }
 
-        public async Task<bool> WithdrawFunds(DbContext context, ApplicationUser user, decimal amount)
+        public async Task<bool> WithdrawFunds(ApplicationDbContext context, ApplicationUser user, decimal amount)
         {
             if (user.Balance > amount)
             {
                 user.Balance -= amount;
+                var withdrawal = new Withdrawal()
+                {
+                    User = user,
+                    Amount = amount,
+                };
+                context.Withdrawals.Add(withdrawal);
                 await context.SaveChangesAsync();
                 return true;
             }

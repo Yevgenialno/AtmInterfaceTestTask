@@ -59,6 +59,12 @@ namespace CashboxInterfaceTestTask.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             var model = new SeeBalanceViewModel() { Balance = user.Balance, CardNumber = user.CardNumber };
+            var balanceView = new BalanceView()
+            {
+                User = user,
+            };
+            _context.BalanceViews.Add(balanceView);
+            await _context.SaveChangesAsync();
             return View(model);
         }
     }

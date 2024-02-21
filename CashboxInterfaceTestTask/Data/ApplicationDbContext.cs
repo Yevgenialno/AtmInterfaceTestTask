@@ -12,5 +12,9 @@ namespace CashboxInterfaceTestTask.Data
         }
 
         public DbSet<ApplicationUser> Users {  get; set; }
+
+        public DbSet<Withdrawal> Withdrawals { get; set; }
+
+        public DbSet<BalanceView> BalanceViews { get; set; }
     }
 }

@@ -1,10 +1,11 @@
-﻿using CashboxInterfaceTestTask.Models;
+﻿using CashboxInterfaceTestTask.Data;
+using CashboxInterfaceTestTask.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CashboxInterfaceTestTask.Services
 {
     public interface IBankOperationsService
     {
-        public Task<bool> WithdrawFunds(DbContext context, ApplicationUser user, decimal amount);
+        public Task<bool> WithdrawFunds(ApplicationDbContext context, ApplicationUser user, decimal amount);
     }
 }

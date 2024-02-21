@@ -5,3 +5,10 @@
 <p>Time of withdrawal: @Model.DateTime</p>
 <p>Withdrawed amount: @Model.Amount</p>
 <p>Your current balance: @Model.Rest</p>
+
+<form method="get" asp-controller="Operations" asp-action="Index">
+    <button class="btn" type="submit">Back</button>
+</form>
+<form asp-controller="Account" asp-action="LogOff">
+    <button class="btn" type="submit">Exit</button>
+</form>

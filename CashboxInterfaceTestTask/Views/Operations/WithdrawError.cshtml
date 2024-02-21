@@ -1,3 +1,6 @@
 ﻿@model WithdrawErrorViewModel
 
 <p>Unable to perform withdrawal: @Model.ErrorMessage</p>
+<form method="get" asp-controller="Operations" asp-action="Index">
+    <button class="btn" type="submit">Back</button>
+</form>

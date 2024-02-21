@@ -5,7 +5,41 @@
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-froup">
         <label asp-for="Amount"></label>
-        <input asp-for="Amount" />
+        <input id="amount" asp-for="Amount" inputmode="numeric" onkeydown="return false" />
+        <button type="submit">OK</button>
     </div>
-    <button type="submit">OK</button>
 </form>
+
+<button id="clear">Clear</button>
+
+<table id="number-buttons">
+    <tbody>
+        <tr>
+            <td><button>7</button></td>
+            <td><button>8</button></td>
+            <td><button>9</button></td>
+        </tr>
+        <tr>
+            <td><button>4</button></td>
+            <td><button>5</button></td>
+            <td><button>6</button></td>
+        </tr>
+        <tr>
+            <td><button>1</button></td>
+            <td><button>2</button></td>
+            <td><button>3</button></td>
+        </tr>
+        <tr>
+            <td width="33%"><button>,</button></td>
+            <td><button>0</button></td>
+            <td width="33%"></td>
+        </tr>
+    </tbody>
+</table>
+
+<form asp-controller="Account" asp-action="LogOff">
+    <button class="btn" type="submit">Exit</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="~/js/enterAmountScript.js"></script>
